@@ -759,6 +759,10 @@ XYZ_CONSTS_FROM_CONFIG(signed char, home_dir, HOME_DIR);
 
 void stop();
 
+#ifdef RESET_ON
+  void(* resetFunc) (void) = 0;
+#endif
+
 void get_available_commands();
 void process_next_command();
 void process_parsed_command();
@@ -14774,11 +14778,16 @@ void manage_inactivity(const bool ignore_stepper_queue/*=false*/) {
     // Exceeded threshold and we can confirm that it was not accidental
     // KILL the machine
     // ----------------------------------------------------------------
+	#ifdef RESET_ON
+    if (killCount >= KILL_DELAY) resetFunc();
+	#endif
+	#ifndef RESET_ON
     if (killCount >= KILL_DELAY) {
       SERIAL_ERROR_START();
       SERIAL_ERRORLNPGM(MSG_KILL_BUTTON);
       kill(PSTR(MSG_KILLED));
     }
+	#endif
   #endif
 
   #if HAS_HOME
