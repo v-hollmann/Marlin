@@ -40,6 +40,65 @@
 #define CONFIGURATION_H_VERSION 010109
 
 //===========================================================================
+//=============================== Type of Cube ==============================
+//===========================================================================
+
+
+/**
+
+  Kryal Config file for JJ printer Nr. Two
+
+  - XT version (300x200x200 mm)
+  - Two Extruders
+  - External Bed Levelling
+  - RAMPS 1.4 w. RRD extension
+  - 128x64 Graphical display
+  - Baud rate 115200
+
+ */
+
+//#define JJone
+#define JJtwo
+//#define NoTwo
+//#define Stana
+//#define Test
+
+#define CU_NOLCD 0
+#define CU_CHARS 1
+#define CU_GRAPH 2
+
+#define CU_BL_NO 0
+#define CU_BL_EXT 1
+#define CU_BL_INT 2
+
+#ifdef JJtwo
+  #define COREYX
+  #define HOME_Y_BEFORE_X
+
+  #define CU_EXTR 2  // Number of extruders
+  #define CU_BOARD BOARD_RAMPS_14_EEB  // Type of board
+  #define CU_BAUD 115200 // Speed of communication
+  #define CU_LCD CU_GRAPH // Type of LCD - CU_CHARS; CU_GRAPH; CU_NOLCD
+  #define CU_XSIZE 300	// print space - x dimension in mm
+  #define CU_YSIZE 200	// print space - y dimension in mm
+  #define CU_ZSIZE 200	// print space - z dimension in mm
+  #define CU_X_HOME_POS -10 // homing position - axle x
+  #define CU_Y_HOME_POS -10 // homing position - axle y
+  #define CU_Z_HOME_POS 0 // homing position - axle z
+  #define CU_STEPS { 160, 160, 800, 215 }
+  #define CU_FEED  { 120, 120, 15, 25 }
+  #define CU_ACCEL { 1500, 1500, 100, 10000 }
+  #define CU_INV_X_DIR true
+  #define CU_INV_Y_DIR false
+  #define CU_INV_Z_DIR false
+  #define CU_INV_E0_DIR false //JJ false
+  #define CU_INV_E1_DIR false
+  #define CU_BED_LEV CU_BL_INT  // CU_BL_NO; CU_BL_EXT; CU_BL_INT
+  #define CU_LANG cz
+  #define CU_MINTEMP 170
+#endif
+
+//===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
 
@@ -123,7 +182,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 250000
+#define BAUDRATE CU_BAUD
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -131,7 +190,7 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #define MOTHERBOARD CU_BOARD
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
@@ -146,10 +205,10 @@
 
 // This defines the number of extruders
 // :[1, 2, 3, 4, 5]
-#define EXTRUDERS 1
+#define EXTRUDERS CU_EXTR
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
-#define DEFAULT_NOMINAL_FILAMENT_DIA 3.0
+#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 //#define SINGLENOZZLE
@@ -311,11 +370,15 @@
  * :{ '0': "Not used", '1':"100k / 4.7k - EPCOS", '2':"200k / 4.7k - ATC Semitec 204GT-2", '3':"Mendel-parts / 4.7k", '4':"10k !! do not use for a hotend. Bad resolution at high temp. !!", '5':"100K / 4.7k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '501':"100K Zonestar (Tronxy X3A)", '6':"100k / 4.7k EPCOS - Not as accurate as Table 1", '7':"100k / 4.7k Honeywell 135-104LAG-J01", '8':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT", '9':"100k / 4.7k GE Sensing AL03006-58.2K-97-G1", '10':"100k / 4.7k RS 198-961", '11':"100k / 4.7k beta 3950 1%", '12':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT (calibrated for Makibox hot bed)", '13':"100k Hisens 3950  1% up to 300°C for hotend 'Simple ONE ' & hotend 'All In ONE'", '20':"PT100 (Ultimainboard V2.x)", '51':"100k / 1k - EPCOS", '52':"200k / 1k - ATC Semitec 204GT-2", '55':"100k / 1k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '60':"100k Maker's Tool Works Kapton Bed Thermistor beta=3950", '66':"Dyze Design 4.7M High Temperature thermistor", '70':"the 100K thermistor found in the bq Hephestos 2", '71':"100k / 4.7k Honeywell 135-104LAF-J01", '147':"Pt100 / 4.7k", '1047':"Pt1000 / 4.7k", '110':"Pt100 / 1k (non-standard)", '1010':"Pt1000 / 1k (non standard)", '-4':"Thermocouple + AD8495", '-3':"Thermocouple + MAX31855 (only for sensor 0)", '-2':"Thermocouple + MAX6675 (only for sensor 0)", '-1':"Thermocouple + AD595",'998':"Dummy 1", '999':"Dummy 2" }
  */
 #define TEMP_SENSOR_0 1
-#define TEMP_SENSOR_1 0
+#if CU_EXTR > 1
+ #define TEMP_SENSOR_1 1
+#else
+ #define TEMP_SENSOR_1 0
+#endif
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1
 #define TEMP_SENSOR_CHAMBER 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -454,7 +517,7 @@
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
 #define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 170
+#define EXTRUDE_MINTEMP CU_MINTEMP
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
@@ -494,7 +557,7 @@
 //#define COREXY
 //#define COREXZ
 //#define COREYZ
-//#define COREYX
+
 //#define COREZX
 //#define COREZY
 
@@ -608,14 +671,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 4000, 500 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   CU_STEPS
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          CU_FEED
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -623,7 +686,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      CU_ACCEL
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -674,7 +737,10 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+
+#if CU_BED_LEV == CU_BL_INT
+  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#endif
 
 /**
  * Z_MIN_PROBE_ENDSTOP
@@ -695,7 +761,11 @@
  * disastrous consequences. Use with caution and do your homework.
  *
  */
-//#define Z_MIN_PROBE_ENDSTOP
+
+#if CU_BED_LEV == CU_BL_EXT
+  #define Z_MIN_PROBE_PIN Z_MAX_PIN
+  #define Z_MIN_PROBE_ENDSTOP
+#endif
 
 /**
  * Probe Type
@@ -716,7 +786,10 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+
+#if (CU_BED_LEV == CU_BL_EXT||CU_BED_LEV == CU_BL_INT)
+  #define FIX_MOUNTED_PROBE
+#endif
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -781,7 +854,7 @@
 #define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
 
 // Certain types of probes need to stay away from edges
-#define MIN_PROBE_EDGE 10
+#define MIN_PROBE_EDGE 20
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -848,15 +921,15 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
+#define INVERT_X_DIR CU_INV_X_DIR
+#define INVERT_Y_DIR CU_INV_Y_DIR
+#define INVERT_Z_DIR CU_INV_Z_DIR
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
-#define INVERT_E1_DIR false
+#define INVERT_E0_DIR CU_INV_E0_DIR
+#define INVERT_E1_DIR CU_INV_E1_DIR
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 #define INVERT_E4_DIR false
@@ -879,8 +952,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 200
-#define Y_BED_SIZE 200
+#define X_BED_SIZE CU_XSIZE
+#define Y_BED_SIZE CU_YSIZE
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -888,7 +961,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200
+#define Z_MAX_POS CU_ZSIZE
 
 /**
  * Software Endstops
@@ -975,7 +1048,10 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
+
+#if (CU_BED_LEV == CU_BL_EXT||CU_BED_LEV == CU_BL_INT)
+  #define AUTO_BED_LEVELING_BILINEAR
+#endif
 //#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
 
@@ -1024,10 +1100,10 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  //#define LEFT_PROBE_BED_POSITION MIN_PROBE_EDGE
-  //#define RIGHT_PROBE_BED_POSITION (X_BED_SIZE - MIN_PROBE_EDGE)
-  //#define FRONT_PROBE_BED_POSITION MIN_PROBE_EDGE
-  //#define BACK_PROBE_BED_POSITION (Y_BED_SIZE - MIN_PROBE_EDGE)
+  #define LEFT_PROBE_BED_POSITION MIN_PROBE_EDGE
+  #define RIGHT_PROBE_BED_POSITION (X_BED_SIZE - MIN_PROBE_EDGE)
+  #define FRONT_PROBE_BED_POSITION MIN_PROBE_EDGE
+  #define BACK_PROBE_BED_POSITION (Y_BED_SIZE - MIN_PROBE_EDGE)
 
   // Probe along the Y axis, advancing X after each column
   //#define PROBE_Y_FIRST
@@ -1128,9 +1204,9 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-//#define MANUAL_X_HOME_POS 0
-//#define MANUAL_Y_HOME_POS 0
-//#define MANUAL_Z_HOME_POS 0
+#define MANUAL_X_HOME_POS CU_X_HOME_POS
+#define MANUAL_Y_HOME_POS CU_Y_HOME_POS
+#define MANUAL_Z_HOME_POS CU_Z_HOME_POS
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -1393,7 +1469,7 @@
  *
  * :{ 'en':'English', 'an':'Aragonese', 'bg':'Bulgarian', 'ca':'Catalan', 'cn':'Chinese', 'cz':'Czech', 'cz_utf8':'Czech (UTF8)', 'de':'German', 'el':'Greek', 'el-gr':'Greek (Greece)', 'es':'Spanish', 'es_utf8':'Spanish (UTF8)', 'eu':'Basque-Euskera', 'fi':'Finnish', 'fr':'French', 'fr_utf8':'French (UTF8)', 'gl':'Galician', 'hr':'Croatian', 'it':'Italian', 'kana':'Japanese', 'kana_utf8':'Japanese (UTF8)', 'nl':'Dutch', 'pl':'Polish', 'pt':'Portuguese', 'pt-br':'Portuguese (Brazilian)', 'pt-br_utf8':'Portuguese (Brazilian UTF8)', 'pt_utf8':'Portuguese (UTF8)', 'ru':'Russian', 'sk_utf8':'Slovak (UTF8)', 'tr':'Turkish', 'uk':'Ukrainian', 'zh_CN':'Chinese (Simplified)', 'zh_TW':'Chinese (Taiwan)', 'test':'TEST' }
  */
-#define LCD_LANGUAGE en
+#define LCD_LANGUAGE CU_LANG
 
 /**
  * LCD Character Set
@@ -1417,7 +1493,9 @@
  *
  * :['JAPANESE', 'WESTERN', 'CYRILLIC']
  */
-#define DISPLAY_CHARSET_HD44780 JAPANESE
+#if CU_LCD == CU_CHAR
+  #define DISPLAY_CHARSET_HD44780 JAPANESE
+#endif
 
 /**
  * SD CARD
@@ -1426,7 +1504,11 @@
  * you must uncomment the following option or it won't work.
  *
  */
-//#define SDSUPPORT
+
+#if ((CU_LCD == CU_CHAR)||(CU_LCD == CU_GRAPH))
+  #define SDSUPPORT
+#endif
+//
 
 /**
  * SD CARD: SPI SPEED
@@ -1529,7 +1611,10 @@
 //
 // Note: Usually sold with a white PCB.
 //
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+
+#if (CU_LCD == CU_CHAR)
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER
+#endif
 
 //
 // ULTIMAKER Controller.
@@ -1656,8 +1741,9 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
-
+#if (CU_LCD == CU_GRAPH)
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#endif
 //
 // ReprapWorld Graphical LCD
 // https://reprapworld.com/?products_details&products_id/1218
