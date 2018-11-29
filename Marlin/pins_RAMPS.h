@@ -234,6 +234,9 @@
 #ifndef RAMPS_D10_PIN
   #define RAMPS_D10_PIN    10
 #endif
+#ifndef RRD_FAN_PIN
+  #define RRD_FAN_PIN   6                      // Pin 6 or 11
+#endif
 
 #define HEATER_0_PIN       RAMPS_D10_PIN
 
@@ -244,6 +247,7 @@
 #elif ENABLED(IS_RAMPS_EEB)                    // Hotend, Hotend, Bed
   #define HEATER_1_PIN     RAMPS_D9_PIN
   #define HEATER_BED_PIN   RAMPS_D8_PIN
+  #define FAN_PIN        RRD_FAN_PIN           // RRD Extender for Fan
 #elif ENABLED(IS_RAMPS_EFF)                    // Hotend, Fan, Fan
   #define FAN1_PIN         RAMPS_D8_PIN
 #elif DISABLED(IS_RAMPS_SF)                    // Not Spindle, Fan (i.e., "EFBF" or "EFBE")
