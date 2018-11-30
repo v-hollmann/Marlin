@@ -14780,8 +14780,7 @@ void manage_inactivity(const bool ignore_stepper_queue/*=false*/) {
     // ----------------------------------------------------------------
 	#ifdef RESET_ON
     if (killCount >= KILL_DELAY) resetFunc();
-	#endif
-	#ifndef RESET_ON
+	#else
     if (killCount >= KILL_DELAY) {
       SERIAL_ERROR_START();
       SERIAL_ERRORLNPGM(MSG_KILL_BUTTON);
