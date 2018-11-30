@@ -43,13 +43,6 @@
 //=============================== Type of Cube ==============================
 //===========================================================================
 
-
-//#define JJone
-#define JJtwo
-//#define NoTwo
-//#define Stana
-//#define Test
-
 #define CU_NOLCD 0
 #define CU_CHARS 1
 #define CU_GRAPH 2
@@ -58,9 +51,16 @@
 #define CU_BL_EXT 1
 #define CU_BL_INT 2
 
+//#define JJone
+#define JJtwo
+//#define NoTwo
+//#define Stana
+//#define Test
+
 #ifdef JJtwo
   #define COREYX
   #define HOME_Y_BEFORE_X
+  #define CUSTOM_MACHINE_NAME "XT Dual"
 
   #define CU_EXTR 2  // Number of extruders
   #define CU_BOARD BOARD_RAMPS_14_EEB  // Type of board
@@ -80,7 +80,63 @@
   #define CU_INV_Z_DIR false
   #define CU_INV_E0_DIR false //JJ false
   #define CU_INV_E1_DIR false
-  #define CU_BED_LEV CU_BL_INT  // CU_BL_NO; CU_BL_EXT; CU_BL_INT
+  #define CU_BED_LEV CU_BL_EXT  // CU_BL_NO; CU_BL_EXT; CU_BL_INT
+  #define CU_LANG cz
+  #define CU_MINTEMP 170
+#endif
+
+#ifdef NoTwo
+  #define COREXY
+  #define HOME_Y_BEFORE_X
+  #define CUSTOM_MACHINE_NAME "ST Dual"
+
+  #define CU_EXTR 2  // Number of extruders
+  #define CU_BOARD MKS_BASE  // Type of board
+  #define CU_BAUD 115200 // Speed of communication
+  #define CU_LCD CU_CHARS // Type of LCD - CU_CHARS; CU_GRAPH; CU_NOLCD
+  #define CU_XSIZE 200	// print space - x dimension in mm
+  #define CU_YSIZE 190	// print space - y dimension in mm
+  #define CU_ZSIZE 195	// print space - z dimension in mm
+  #define CU_X_HOME_POS 0 // homing position - axle x
+  #define CU_Y_HOME_POS 0 // homing position - axle y
+  #define CU_Z_HOME_POS 0 // homing position - axle z
+  #define CU_STEPS { 80, 80, 400, 115 }
+  #define CU_FEED  { 120, 120, 15, 25 }
+  #define CU_ACCEL { 1500, 1500, 100, 10000 }
+  #define CU_INV_X_DIR false
+  #define CU_INV_Y_DIR false
+  #define CU_INV_Z_DIR true
+  #define CU_INV_E0_DIR true
+  #define CU_INV_E1_DIR false
+  #define CU_BED_LEV CU_BL_EXT  // CU_BL_NO; CU_BL_EXT; CU_BL_INT
+  #define CU_LANG cz
+  #define CU_MINTEMP 170
+#endif
+
+#ifdef Stana
+  #define COREXY
+  #define HOME_Y_BEFORE_X
+  #define CUSTOM_MACHINE_NAME "XZT Dual"
+
+  #define CU_EXTR 2  // Number of extruders
+  #define CU_BOARD MKS_BASE  // Type of board
+  #define CU_BAUD 115200 // Speed of communication
+  #define CU_LCD CU_CHARS // Type of LCD - CU_CHARS; CU_GRAPH; CU_NOLCD
+  #define CU_XSIZE 300	// print space - x dimension in mm
+  #define CU_YSIZE 200	// print space - y dimension in mm
+  #define CU_ZSIZE 300	// print space - z dimension in mm
+  #define CU_X_HOME_POS 0 // homing position - axle x
+  #define CU_Y_HOME_POS 0 // homing position - axle y
+  #define CU_Z_HOME_POS 0 // homing position - axle z
+  #define CU_STEPS { 80, 80, 400, 115 }
+  #define CU_FEED  { 120, 120, 15, 25 }
+  #define CU_ACCEL { 1500, 1500, 100, 10000 }
+  #define CU_INV_X_DIR false
+  #define CU_INV_Y_DIR false
+  #define CU_INV_Z_DIR true
+  #define CU_INV_E0_DIR true
+  #define CU_INV_E1_DIR false
+  #define CU_BED_LEV CU_BL_EXT  // CU_BL_NO; CU_BL_EXT; CU_BL_INT
   #define CU_LANG cz
   #define CU_MINTEMP 170
 #endif
@@ -750,7 +806,7 @@
  */
 
 #if CU_BED_LEV == CU_BL_EXT
-  #define Z_MIN_PROBE_PIN Z_MAX_PIN
+  #define Z_MIN_PROBE_PIN 19
   #define Z_MIN_PROBE_ENDSTOP
 #endif
 
@@ -1083,8 +1139,14 @@
 #if ENABLED(AUTO_BED_LEVELING_LINEAR) || ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
+
+#if CU_XSIZE > 250
+  #define GRID_MAX_POINTS_X 4
+#else
   #define GRID_MAX_POINTS_X 3
-  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
+#endif
+
+  #define GRID_MAX_POINTS_Y 3
 
   // Set the boundaries for probing (where the probe can reach).
   #define LEFT_PROBE_BED_POSITION MIN_PROBE_EDGE
@@ -1318,13 +1380,39 @@
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     70
+// PLA
+#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_BED     55
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
-
-#define PREHEAT_2_TEMP_HOTEND 240
+// ABS
+#define PREHEAT_2_TEMP_HOTEND 230
 #define PREHEAT_2_TEMP_BED    110
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
+// PETG
+#define PREHEAT_3_TEMP_HOTEND 245
+#define PREHEAT_3_TEMP_BED     70
+#define PREHEAT_3_FAN_SPEED     0 // Value from 0 to 255
+// TPE
+#define PREHEAT_4_TEMP_HOTEND 230
+#define PREHEAT_4_TEMP_BED     60
+#define PREHEAT_4_FAN_SPEED     0 // Value from 0 to 255
+// ASA
+#define PREHEAT_5_TEMP_HOTEND 250
+#define PREHEAT_5_TEMP_BED     90
+#define PREHEAT_5_FAN_SPEED     0 // Value from 0 to 255
+// PVA
+#define PREHEAT_6_TEMP_HOTEND 220
+#define PREHEAT_6_TEMP_BED     60
+#define PREHEAT_6_FAN_SPEED     0 // Value from 0 to 255
+// PA
+#define PREHEAT_7_TEMP_HOTEND 235
+#define PREHEAT_7_TEMP_BED    110
+#define PREHEAT_7_FAN_SPEED     0 // Value from 0 to 255
+// HIPS
+#define PREHEAT_8_TEMP_HOTEND 235
+#define PREHEAT_8_TEMP_BED    100
+#define PREHEAT_8_FAN_SPEED     0 // Value from 0 to 255
+
 
 /**
  * Nozzle Park
