@@ -44,19 +44,6 @@
 //===========================================================================
 
 
-/**
-
-  Kryal Config file for JJ printer Nr. Two
-
-  - XT version (300x200x200 mm)
-  - Two Extruders
-  - External Bed Levelling
-  - RAMPS 1.4 w. RRD extension
-  - 128x64 Graphical display
-  - Baud rate 115200
-
- */
-
 //#define JJone
 #define JJtwo
 //#define NoTwo
