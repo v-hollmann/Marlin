@@ -52,8 +52,8 @@
 #define CU_BL_INT 2
 
 //#define JJone
-#define JJtwo
-//#define NoTwo
+//#define JJtwo
+#define NoTwo
 //#define Stana
 //#define Test
 
@@ -88,10 +88,10 @@
 #ifdef NoTwo
   #define COREXY
   #define HOME_Y_BEFORE_X
-  #define CUSTOM_MACHINE_NAME "ST Dual"
+  #define CUSTOM_MACHINE_NAME "Dual ST"
 
   #define CU_EXTR 2  // Number of extruders
-  #define CU_BOARD MKS_BASE  // Type of board
+  #define CU_BOARD BOARD_MKS_GEN_L  // Type of board
   #define CU_BAUD 115200 // Speed of communication
   #define CU_LCD CU_CHARS // Type of LCD - CU_CHARS; CU_GRAPH; CU_NOLCD
   #define CU_XSIZE 200	// print space - x dimension in mm
@@ -119,14 +119,14 @@
   #define CUSTOM_MACHINE_NAME "XZT Dual"
 
   #define CU_EXTR 2  // Number of extruders
-  #define CU_BOARD MKS_BASE  // Type of board
+  #define CU_BOARD BOARD_MKS_BASE  // Type of board
   #define CU_BAUD 115200 // Speed of communication
   #define CU_LCD CU_CHARS // Type of LCD - CU_CHARS; CU_GRAPH; CU_NOLCD
   #define CU_XSIZE 300	// print space - x dimension in mm
   #define CU_YSIZE 200	// print space - y dimension in mm
   #define CU_ZSIZE 300	// print space - z dimension in mm
-  #define CU_X_HOME_POS 0 // homing position - axle x
-  #define CU_Y_HOME_POS 0 // homing position - axle y
+  #define CU_X_HOME_POS -10 // homing position - axle x
+  #define CU_Y_HOME_POS -10 // homing position - axle y
   #define CU_Z_HOME_POS 0 // homing position - axle z
   #define CU_STEPS { 80, 80, 400, 115 }
   #define CU_FEED  { 120, 120, 15, 25 }
