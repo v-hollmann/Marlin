@@ -3248,14 +3248,26 @@ void lcd_quick_feedback(const bool clear_buttons) {
       if (has_heat) MENU_ITEM(function, MSG_COOLDOWN, lcd_cooldown);
 
       //
-      // Preheat for Material 1 and 2
+      // Preheat for Materials 1 to 8
       //
       #if TEMP_SENSOR_1 != 0 || TEMP_SENSOR_2 != 0 || TEMP_SENSOR_3 != 0 || TEMP_SENSOR_4 != 0 || HAS_HEATED_BED
-        MENU_ITEM(submenu, MSG_PREHEAT_1, lcd_preheat_m1_menu);
-        MENU_ITEM(submenu, MSG_PREHEAT_2, lcd_preheat_m2_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_1, lcd_preheat_m1_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_2, lcd_preheat_m2_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_3, lcd_preheat_m3_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_4, lcd_preheat_m4_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_5, lcd_preheat_m5_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_6, lcd_preheat_m6_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_7, lcd_preheat_m7_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_8, lcd_preheat_m8_menu);
       #else
-        MENU_ITEM(function, MSG_PREHEAT_1, lcd_preheat_m1_e0_only);
-        MENU_ITEM(function, MSG_PREHEAT_2, lcd_preheat_m2_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_1, lcd_preheat_m1_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_2, lcd_preheat_m2_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_3, lcd_preheat_m3_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_4, lcd_preheat_m4_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_5, lcd_preheat_m5_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_6, lcd_preheat_m6_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_7, lcd_preheat_m7_e0_only);
+      MENU_ITEM(function, MSG_PREHEAT_8, lcd_preheat_m8_e0_only);
       #endif
 
     #endif // HAS_TEMP_HOTEND

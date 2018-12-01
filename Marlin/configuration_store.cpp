@@ -197,9 +197,9 @@ typedef struct SettingsDataStruct {
   //
   // ULTIPANEL
   //
-  int16_t lcd_preheat_hotend_temp[2],                   // M145 S0 H
-          lcd_preheat_bed_temp[2],                      // M145 S0 B
-          lcd_preheat_fan_speed[2];                     // M145 S0 F
+  int16_t lcd_preheat_hotend_temp[8],                   // M145 S0 H
+          lcd_preheat_bed_temp[8],                      // M145 S0 B
+          lcd_preheat_fan_speed[8];                     // M145 S0 F
 
   //
   // PIDTEMP
