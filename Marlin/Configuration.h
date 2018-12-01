@@ -101,7 +101,7 @@
   #define CU_Y_HOME_POS 0 // homing position - axle y
   #define CU_Z_HOME_POS 0 // homing position - axle z
   #define CU_STEPS { 80, 80, 400, 115 }
-  #define CU_FEED  { 120, 120, 15, 25 }
+  #define CU_FEED  { 120, 120, 30, 25 }
   #define CU_ACCEL { 1500, 1500, 100, 10000 }
   #define CU_INV_X_DIR false
   #define CU_INV_Y_DIR false
@@ -640,7 +640,7 @@
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
 
 /**
  * Stepper Drivers
@@ -739,9 +739,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  10000    // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   2000    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk (mm/s)
@@ -753,7 +753,7 @@
  */
 #define DEFAULT_XJERK                 10.0
 #define DEFAULT_YJERK                 10.0
-#define DEFAULT_ZJERK                  0.3
+#define DEFAULT_ZJERK                  0.4
 #define DEFAULT_EJERK                  5.0
 
 /**
@@ -1568,7 +1568,7 @@
  *
  * :['JAPANESE', 'WESTERN', 'CYRILLIC']
  */
-#if CU_LCD == CU_CHAR
+#if CU_LCD == CU_CHARS
   #define DISPLAY_CHARSET_HD44780 JAPANESE
 #endif
 
@@ -1580,7 +1580,7 @@
  *
  */
 
-#if ((CU_LCD == CU_CHAR)||(CU_LCD == CU_GRAPH))
+#if ((CU_LCD == CU_CHARS)||(CU_LCD == CU_GRAPH))
   #define SDSUPPORT
 #endif
 //
@@ -1687,7 +1687,7 @@
 // Note: Usually sold with a white PCB.
 //
 
-#if (CU_LCD == CU_CHAR)
+#if (CU_LCD == CU_CHARS)
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
 #endif
 
